@@ -7,7 +7,7 @@
    -->
 
 <language name="FiM++" version="0.10" kateversion="2.4" section="Sources"
-	extensions="*.fpp;*.fim" mimetype="text/x-fimpp" license="LGPL" indenter="python"
+	extensions="*.fpp;*.fim;*.fimpp" mimetype="text/x-fimpp" license="LGPL" indenter="python"
 	priority="10" author="Industrial Breeze (industrial.breeze@gmail.com)" >
 
 	<highlighting>
