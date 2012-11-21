@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+
+<!--
+	Version 0.10: Dear Princess Celestia highlighting, general settings
+
+   -->
+
+<language name="FiM++" version="0.10" kateversion="2.4" section="Sources"
+	extensions="*.fpp;*.fim" mimetype="text/x-fimpp" license="LGPL" indenter="python"
+	priority="10" author="Industrial Breeze (industrial.breeze@gmail.com)" >
+
+	<highlighting>
+		<list name="keywords"><!-- Keywords -->
+			<item> Dear </item>
+			<item> and </item>
+		</list>
+
+		<contexts>
+
+			<context attribute="Normal Text" lineEndContext="#stay" name="Normal Text" >
+				<keyword attribute="Keyword" context="#stay" String="keywords" />
+					<RegExpr attribute="Variable" String="^Dear .+,$" firstNonSpace="true" />
+				<!-- context="Addressee" -->
+			</context>
+
+			<context name="Addressee" lineEndContext="#pop" attribute="Variable">
+				<DetectSpaces />
+				<DetectChar attribute="Variable" context="#pop" char="," />
+				<DetectWord attribute="Variable" context="#pop" String="and" />
+			</context>
+
+		</contexts>
+
+		<itemDatas>
+			<!-- itemData attribute field refers to highlighting type, just defining styles here -->
+			<itemData name="Normal Text" defStyleNum="dsNormal" />
+			<itemData name="Keyword" defStyleNum="dsKeyword" spellChecking="false"/>
+			<itemData name="Variable" defStyleNum="dsString" color="#11B4FF" />
+		</itemDatas>
+
+	</highlighting>
+
+	<general>
+		<comments>
+			<comment name="singleLine" start="P.S."/>
+			<comment name="multiLine" start="(" end=")" />
+		</comments>
+		<keywords weakDeliminator="." />
+	</general>
+
+</language>

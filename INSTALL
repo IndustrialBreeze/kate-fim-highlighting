@@ -1,0 +1,13 @@
+Installation Instructions:
+
+
+Copy fimpp.xml to ~/.kde4/share/apps/katepart/syntax/
+(.kde4 is a hidden folder, either show hidden files/folders or type in the path
+exactly for browsing or copying)
+
+Create folders if they do not exist. This was written and tested on a 
+KDE 4.9.x series system. Older versions may have different paths.
+
+You can copy to the root folder structure so all users can use the highlighting
+by placing it in /usr/share/apps/katepart/syntax/, but you will need root
+permissions in doing so.
