@@ -25,6 +25,12 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 						<RegExpr String=".+:" attribute="Interface" context="#pop" />
 						<!--<DetectChar char="'" attribute="String" context="Quote" /> -->
 						<DetectChar char="&quot;" attribute="String" context="DoubleQuote" />
+						<StringDetect String="I learned" attribute="Keyword" context="Method" />
+						<StringDetect String="Then you get" attribute="Keyword" context="Method" insensitive="true" />
+						<StringDetect String="That's all about" attribute="Keyword" context="Method" />
+						<StringDetect String="I said" attribute="BuiltInMethod" />
+						<RegExpr String="[\d]" attribute="Digit" />
+
 					</context>
 
 					<context name="Quote" attribute="String" lineEndContext="#stay" >
@@ -33,7 +39,6 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 					<context name="DoubleQuote" attribute="String" lineEndContext="#stay" >
 						<DetectChar char="&quot;" attribute="String" context="#pop" />
 					</context>
-
 
 					<context name="Comment" attribute="Comment" lineEndContext="#pop" >
 					</context>
@@ -51,11 +56,31 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 						<DetectChar char="," attribute="Normal Text" context="Programmer" />
 					</context>
 
+					<context name="Method" attribute="Method" lineEndContext="#pop" >
+						<DetectChar char="!" attribute="Normal Text" />
+						<DetectChar char="," attribute="Normal Text" />
+						<DetectChar char="." attribute="Normal Text" />
+						<DetectChar char=":" attribute="Normal Text" />
+
+						<StringDetect String="with" attribute="Keyword" context="Parameters" />
+						<!-- punctuation -->
+					</context>
+
+					<context name="Parameters" attribute="Parameters" lineEndContext="#pop" >
+						<StringDetect String="using" attribute="Keyword" insensitive="true" />
+						<RegExpr String="a number|the numbers" attribute="Type" />
+						<DetectChar char="." attribute="Normal Text" context="#pop" />
+					</context>
+
 					<context name="Programmer" attribute="Keyword" lineEndContext="#pop" >
 						<DetectChar char="," attribute="Normal Text" />
 					</context>
 
 					<context name="SuperClass" attribute="SuperClass" lineEndContext="#pop" >
+					</context>
+
+					<context name="DataTypes" attribute="Normal Text" lineEndContext="#pop" >
+
 					</context>
 				</contexts>
 
@@ -66,9 +91,14 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 					<itemData name="Variable" defStyleNum="dsNormal" color="#11B4FF" />
 					<itemData name="SuperClass" defStyleNum="dsNormal" color="#800080" bold="true" />
 					<itemData name="Class" defStyleNum="dsNormal" color="#C400FF" />
-					<itemData name="Comment" defStyleNum="dsNormal" color="#808080" />
+					<itemData name="Comment" defStyleNum="dsComment" color="#808080" />
 					<itemData name="Interface" defStyleNum="dsNormal" color="#FF00FF" />
 					<itemData name="String" defStyleNum="dsString" />
+					<itemData name="Type" defStyleNum="dsDataType" color="#000097" />
+					<itemData name="Method" defStyleNum="dsFunction" color="#0000FF" />
+					<itemData name="Parameters" defStyleNum="dsDataType" color="#00C000" />
+					<itemData name="BuiltInMethod" defStyleNum="dsFunction" color="#0000FF" bold="true" />
+					<itemData name="Digit" defStyleNum="dsDecVal" color="#D3C500" />
 				</itemDatas>
 
 			</highlighting>
