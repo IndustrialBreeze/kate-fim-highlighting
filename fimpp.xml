@@ -19,7 +19,8 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 					<context name="Normal Text" attribute="Normal Text" lineEndContext="#stay" >
 						<keyword attribute="Keyword" context="#pop" String="keywords" />
 						<StringDetect String="P.S." attribute="Comment" context="Comment" />
-						<RegExpr String="Dear" attribute="Keyword" context="Class" />
+						<RegExpr String="Dear" attribute="Keyword" context="ClassStart" />
+						<StringDetect String="Your Faithful Student" attribute="Class" insensitive="true" context="Programmer" />
 						<DetectChar char="(" attribute="Comment" context="MultiLineComment" />
 					</context>
 
@@ -30,9 +31,17 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 						<DetectChar char=")" attribute="Comment" context="#pop" />
 					</context>
 
-					<context name="Class" attribute="Class" lineEndContext="#pop">
+					<context name="ClassStart" attribute="Class" lineEndContext="#pop">
 						<DetectChar char=":" attribute="Normal Text" context="SuperClass" />
 						<StringDetect String="and" attribute="Keyword" context="#stay" />
+					</context>
+
+					<context name="ClassEnd" attribute="Class" lineEndContext="#pop">
+						<DetectChar char="," attribute="Normal Text" context="Programmer" />
+					</context>
+
+					<context name="Programmer" attribute="Keyword" lineEndContext="#pop" >
+						<DetectChar char="," attribute="Normal Text" />
 					</context>
 
 					<context name="SuperClass" attribute="SuperClass" lineEndContext="#pop" >
