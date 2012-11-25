@@ -11,8 +11,6 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 
 			<highlighting>
 				<list name="keywords">
-					<item> Dear </item>
-					<item> and </item>
 					<item> Today </item>
 				</list>
 
@@ -21,6 +19,7 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 					<context name="Normal Text" attribute="Normal Text" lineEndContext="#stay" >
 						<keyword attribute="Keyword" context="#pop" String="keywords" />
 						<StringDetect String="P.S." attribute="Comment" context="Comment" />
+						<RegExpr String="Dear" attribute="Keyword" context="Class" />
 						<DetectChar char="(" attribute="Comment" context="MultiLineComment" />
 					</context>
 
@@ -30,6 +29,14 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 					<context name="MultiLineComment" attribute="Comment" lineEndContext="#stay" >
 						<DetectChar char=")" attribute="Comment" context="#pop" />
 					</context>
+
+					<context name="Class" attribute="Class" lineEndContext="#pop">
+						<DetectChar char=":" attribute="Normal Text" context="SuperClass" />
+						<StringDetect String="and" attribute="Keyword" context="#stay" />
+					</context>
+
+					<context name="SuperClass" attribute="SuperClass" lineEndContext="#pop" >
+					</context>
 				</contexts>
 
 				<!-- Highlighting Colour Overrides and Definitions -->
@@ -37,7 +44,8 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 					<itemData name="Normal Text" defStyleNum="dsNormal" />
 					<itemData name="Keyword" defStyleNum="dsKeyword" spellChecking="false"/>
 					<itemData name="Variable" defStyleNum="dsNormal" color="#11B4FF" />
-					<itemData name="SuperClass" defStyleNum="dsNormal" color="#FFBF00" />
+					<itemData name="SuperClass" defStyleNum="dsNormal" color="#800080" bold="true" />
+					<itemData name="Class" defStyleNum="dsNormal" color="#C400FF" />
 					<itemData name="Comment" defStyleNum="dsNormal" color="#808080" />
 				</itemDatas>
 
@@ -49,5 +57,4 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 				</comments>
 				<keywords weakDeliminator="." />
 			</general>
-
 		</language>
