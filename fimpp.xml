@@ -22,7 +22,18 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 						<RegExpr String="Dear" attribute="Keyword" context="ClassStart" />
 						<StringDetect String="Your Faithful Student" attribute="Class" insensitive="true" context="Programmer" />
 						<DetectChar char="(" attribute="Comment" context="MultiLineComment" />
+						<RegExpr String=".+:" attribute="Interface" context="#pop" />
+						<!--<DetectChar char="'" attribute="String" context="Quote" /> -->
+						<DetectChar char="&quot;" attribute="String" context="DoubleQuote" />
 					</context>
+
+					<context name="Quote" attribute="String" lineEndContext="#stay" >
+						<DetectChar char="'" attribute="String" context="#pop" />
+					</context>
+					<context name="DoubleQuote" attribute="String" lineEndContext="#stay" >
+						<DetectChar char="&quot;" attribute="String" context="#pop" />
+					</context>
+
 
 					<context name="Comment" attribute="Comment" lineEndContext="#pop" >
 					</context>
@@ -56,6 +67,8 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 					<itemData name="SuperClass" defStyleNum="dsNormal" color="#800080" bold="true" />
 					<itemData name="Class" defStyleNum="dsNormal" color="#C400FF" />
 					<itemData name="Comment" defStyleNum="dsNormal" color="#808080" />
+					<itemData name="Interface" defStyleNum="dsNormal" color="#FF00FF" />
+					<itemData name="String" defStyleNum="dsString" />
 				</itemDatas>
 
 			</highlighting>
