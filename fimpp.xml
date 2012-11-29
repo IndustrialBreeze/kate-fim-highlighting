@@ -22,13 +22,15 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 						<RegExpr String="Dear" attribute="Keyword" context="ClassStart" />
 						<StringDetect String="Your Faithful Student" attribute="Class" insensitive="true" context="Programmer" />
 						<DetectChar char="(" attribute="Comment" context="MultiLineComment" />
-						<RegExpr String=".+:" attribute="Interface" context="#pop" />
+
 						<!--<DetectChar char="'" attribute="String" context="Quote" /> -->
 						<DetectChar char="&quot;" attribute="String" context="DoubleQuote" />
 						<StringDetect String="I learned" attribute="Keyword" context="Method" />
 						<StringDetect String="Then you get" attribute="Keyword" context="Method" insensitive="true" />
 						<StringDetect String="That's all about" attribute="Keyword" context="Method" />
 						<StringDetect String="I said" attribute="BuiltInMethod" />
+						<StringDetect String="In regards to " attribute="BuiltInMethod" context="SwitchStatement" insensitive="true" />
+						<StringDetect String="If all else fails..." attribute="BuiltInMethod" insensitive="true" />
 						<RegExpr String="[\d]" attribute="Digit" />
 
 					</context>
@@ -65,6 +67,18 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 
 						<StringDetect String="with" attribute="Keyword" context="Parameters" />
 						<!-- punctuation -->
+					</context>
+
+					<context name="SwitchStatement" attribute="Normal Text" lineEndContext="#stay" >
+						<StringDetect String="..." attribute="BuiltInMethod" />
+						<StringDetect String="I said" attribute="BuiltInMethod" insensitive="true" />
+						<StringDetect String="If all else fails" attribute="BuiltInMethod" insensitive="true" />
+						<StringDetect String="That's what I did" attribute="BuiltInMethod" context="#pop" insensitive="true" />
+						<StringDetect String="On the " attribute="Keyword" insensitive="true" context="SwitchCase" />
+					</context>
+
+					<context name="SwitchCase" attribute="Parameters" lineEndContext="#stay" >
+						<StringDetect String="..." attribute="BuiltInMethod" context="#pop" />
 					</context>
 
 					<context name="Parameters" attribute="Parameters" lineEndContext="#pop" >
