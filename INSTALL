@@ -11,3 +11,9 @@ KDE 4.9.x series system. Older versions may have different paths.
 You can copy to the root folder structure so all users can use the highlighting
 by placing it in /usr/share/apps/katepart/syntax/, but you will need root
 permissions in doing so.
+
+
+How To Use Highlighting:
+
+If the file does not automatically change to the FIM++ mode, select it in
+Tools -> Highlighting -> Sources -> FiM++
