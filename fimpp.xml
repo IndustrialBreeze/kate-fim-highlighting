@@ -18,7 +18,7 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 					<!-- Main text body of document -->
 					<context name="Normal Text" attribute="Normal Text" lineEndContext="#stay" >
 						<keyword attribute="Keyword" context="#pop" String="keywords" />
-						<StringDetect String="P.S." attribute="Comment" context="Comment" insensitive="true" />
+						<RegExpr String="(P\.)*P\.S\." attribute="Comment" context="Comment" insensitive="true" />
 						<RegExpr String="Dear" attribute="Keyword" context="ClassStart" />
 						<StringDetect String="Your Faithful Student" attribute="Class" insensitive="true" context="Programmer" />
 						<DetectChar char="(" attribute="Comment" context="MultiLineComment" />
