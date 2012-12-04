@@ -28,12 +28,14 @@ TODO: Regex for punctuation instead of looking for .,?! separately
 						<!--<DetectChar char="'" attribute="String" context="Quote" /> -->
 						<DetectChar char="&quot;" attribute="String" context="DoubleQuote" />
 						<StringDetect String="I learned" attribute="Keyword" context="Method" />
+						<RegExpr String="I remember(ed)?" attribute="Keyword" context="Method" />
 						<StringDetect String="Then you get" attribute="Keyword" context="Return" insensitive="true" />
 						<StringDetect String="That's all about" attribute="Keyword" context="Method" />
 						<StringDetect String="I said" attribute="BuiltInMethod" />
 						<StringDetect String="In regards to " attribute="BuiltInMethod" context="SwitchStatement" insensitive="true" />
 						<StringDetect String="If all else fails..." attribute="BuiltInMethod" insensitive="true" />
 						<StringDetect String="Did you know that" attribute="Keyword" context="Assignment" />
+						<StringDetect String="is" attribute="Keyword" />
 						<RegExpr String="[\d]" attribute="Digit" />
 
 					</context>
@@ -49,17 +51,7 @@ TODO: Regex for punctuation instead of looking for .,?! separately
 
 					<context name="Array" attribute="Parameters" lineEndContext="#pop" >
 						<StringDetect String="many" attribute="ArrayType" />
-						<DetectChar char="." attribute="Keyword" context="ArrayEntry" />
-						<DetectChar char="?" attribute="Normal Text" context="ArrayEntry" />
-					</context>
-
-					<context name="ArrayEntry" attribute="Parameters" lineEndContext="#stay" >
-						<StringDetect String="is" attribute="Keyword" />
-						<DetectChar char="&quot;" attribute="String" context="DoubleQuote" />
-						<DetectChar char="." attribute="Keyword" />
-						<StringDetect String="name" attribute="Keyword" />
-						<RegExpr String="[\d]" attribute="Digit" />
-						<StringDetect String="I remembered" attribute="Keyword" context="#pop#pop#pop" />
+						<RegExpr String="[\.!?]" attribute="Normal Text" context="#pop" />
 					</context>
 
 					<context name="Equals" attribute="Parameters" lineEndContext="#pop" >
@@ -92,12 +84,16 @@ TODO: Regex for punctuation instead of looking for .,?! separately
 
 					<context name="Method" attribute="Method" lineEndContext="#pop" >
 						<DetectChar char="!" attribute="Normal Text" context="#pop" />
+						<DetectChar char="." attribute="Normal Text" />
+						<RegExpr String="[\d]" attribute="Digit" />
 						<StringDetect String="with" attribute="Keyword" context="Parameters" />
 						<!-- punctuation -->
 					</context>
 
 					<context name="Return" attribute="Parameters" lineEndContext="#pop" >
 						<DetectChar char="&quot;" attribute="String" context="DoubleQuote" />
+						<DetectChar char="." attribute="Normal Text" context="#pop" />
+						<DetectChar char="!" attribute="Normal Text" context="#pop" />
 						<RegExpr String="[\d]" attribute="Digit" />
 					</context>
 
