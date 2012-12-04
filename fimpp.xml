@@ -51,6 +51,8 @@ TODO: Regex for punctuation instead of looking for .,?! separately
 
 					<context name="Array" attribute="Parameters" lineEndContext="#pop" >
 						<StringDetect String="many" attribute="ArrayType" />
+						<StringDetect String="the names" attribute="ArrayAssign" />
+						<StringDetect String="and" attribute="Keyword" />
 						<RegExpr String="[\.!?]" attribute="Normal Text" context="#pop" />
 					</context>
 
@@ -143,6 +145,7 @@ TODO: Regex for punctuation instead of looking for .,?! separately
 					<itemData name="BuiltInMethod" defStyleNum="dsFunction" color="#0000FF" bold="true" />
 					<itemData name="Digit" defStyleNum="dsDecVal" color="#D3C500" />
 					<itemData name="ArrayType" defStyleNum="dsOthers" color="#00006B" underline="true" />
+					<itemData name="ArrayAssign" defStyleNum="dsOthers" color="#00006B"  />
 				</itemDatas>
 
 			</highlighting>
