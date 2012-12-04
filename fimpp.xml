@@ -3,6 +3,8 @@
 
 <!--
 Version 0.10: Dear Princess Celestia highlighting, general settings
+
+TODO: Regex for punctuation instead of looking for .,?! separately
 	-->
 
 	<language name="FiM++" version="0.10" kateversion="2.4" section="Sources"
@@ -26,13 +28,39 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 						<!--<DetectChar char="'" attribute="String" context="Quote" /> -->
 						<DetectChar char="&quot;" attribute="String" context="DoubleQuote" />
 						<StringDetect String="I learned" attribute="Keyword" context="Method" />
-						<StringDetect String="Then you get" attribute="Keyword" context="Method" insensitive="true" />
+						<StringDetect String="Then you get" attribute="Keyword" context="Return" insensitive="true" />
 						<StringDetect String="That's all about" attribute="Keyword" context="Method" />
 						<StringDetect String="I said" attribute="BuiltInMethod" />
 						<StringDetect String="In regards to " attribute="BuiltInMethod" context="SwitchStatement" insensitive="true" />
 						<StringDetect String="If all else fails..." attribute="BuiltInMethod" insensitive="true" />
+						<StringDetect String="Did you know that" attribute="Keyword" context="Assignment" />
 						<RegExpr String="[\d]" attribute="Digit" />
 
+					</context>
+
+					<context name="Assignment" attribute="Parameters" lineEndContext="#pop" >
+						<StringDetect String="equals" attribute="Keyword" context="Equals" />
+						<StringDetect String="has" attribute="Keyword" context="Array" />
+					</context>
+
+					<context name="Array" attribute="Parameters" lineEndContext="#pop" >
+						<StringDetect String="many" attribute="ArrayType" />
+						<DetectChar char="." attribute="Keyword" context="ArrayEntry" />
+						<DetectChar char="?" attribute="Normal Text" context="ArrayEntry" />
+					</context>
+
+					<context name="ArrayEntry" attribute="Parameters" lineEndContext="#stay" >
+						<StringDetect String="is" attribute="Keyword" />
+						<DetectChar char="&quot;" attribute="String" context="DoubleQuote" />
+						<DetectChar char="." attribute="Keyword" />
+						<StringDetect String="name" attribute="Keyword" />
+						<RegExpr String="[\d]" attribute="Digit" />
+						<StringDetect String="I remembered" attribute="Keyword" context="#pop#pop#pop" />
+					</context>
+
+					<context name="Equals" attribute="Parameters" lineEndContext="#pop" >
+						<DetectChar char="." attribute="Normal Text" context="#pop#pop" />
+<!-- 						<DetectChar char="?" attribute="Normal Text" context="#pop#pop" /> -->
 					</context>
 
 					<context name="Quote" attribute="String" lineEndContext="#stay" >
@@ -60,13 +88,13 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 
 					<context name="Method" attribute="Method" lineEndContext="#pop" >
 						<DetectChar char="!" attribute="Normal Text" context="#pop" />
-						<DetectChar char="," attribute="Normal Text" context="#pop" />
-						<DetectChar char="." attribute="Normal Text" context="#pop" />
-						<DetectChar char=":" attribute="Normal Text" context="#pop" />
-						<DetectChar char="?" attribute="Normal Text" context="#pop" />
-
 						<StringDetect String="with" attribute="Keyword" context="Parameters" />
 						<!-- punctuation -->
+					</context>
+
+					<context name="Return" attribute="Parameters" lineEndContext="#pop" >
+						<DetectChar char="&quot;" attribute="String" context="DoubleQuote" />
+						<RegExpr String="[\d]" attribute="Digit" />
 					</context>
 
 					<context name="SwitchStatement" attribute="Normal Text" lineEndContext="#stay" >
@@ -87,8 +115,8 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 						<DetectChar char="." attribute="Normal Text" context="#pop" />
 					</context>
 
-					<context name="Programmer" attribute="Keyword" lineEndContext="#pop" >
-						<DetectChar char="," attribute="Normal Text" />
+					<context name="Programmer" attribute="Keyword" lineEndContext="#pop#pop" >
+						<DetectChar char="," attribute="Normal Text"  />
 					</context>
 
 					<context name="SuperClass" attribute="SuperClass" lineEndContext="#pop" >
@@ -114,6 +142,7 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 					<itemData name="Parameters" defStyleNum="dsDataType" color="#00C000" />
 					<itemData name="BuiltInMethod" defStyleNum="dsFunction" color="#0000FF" bold="true" />
 					<itemData name="Digit" defStyleNum="dsDecVal" color="#D3C500" />
+					<itemData name="ArrayType" defStyleNum="dsOthers" color="#00006B" underline="true" />
 				</itemDatas>
 
 			</highlighting>
