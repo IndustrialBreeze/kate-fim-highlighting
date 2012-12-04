@@ -41,6 +41,10 @@ TODO: Regex for punctuation instead of looking for .,?! separately
 					<context name="Assignment" attribute="Parameters" lineEndContext="#pop" >
 						<StringDetect String="equals" attribute="Keyword" context="Equals" />
 						<StringDetect String="has" attribute="Keyword" context="Array" />
+						<StringDetect String="is" attribute="Keyword" context="Array" />
+						<StringDetect String="was" attribute="Keyword" context="Array" />
+						<StringDetect String="had" attribute="Keyword" context="Array" />
+						<RegExpr String="like(s|d)?" attribute="Keyword" context="Array" />
 					</context>
 
 					<context name="Array" attribute="Parameters" lineEndContext="#pop" >
