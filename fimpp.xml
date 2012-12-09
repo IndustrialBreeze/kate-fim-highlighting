@@ -5,6 +5,7 @@
 Version 0.10: Dear Princess Celestia highlighting, general settings
 
 TODO: Regex for punctuation instead of looking for .,?! separately
+TODO: Ensure that types can be context'd by any existing context
 	-->
 
 	<language name="FiM++" version="0.10" kateversion="2.4" section="Sources"
@@ -24,7 +25,6 @@ TODO: Regex for punctuation instead of looking for .,?! separately
 						<RegExpr String="Dear" attribute="Keyword" context="ClassStart" />
 						<StringDetect String="Your Faithful Student" attribute="Class" insensitive="true" context="Programmer" />
 						<DetectChar char="(" attribute="Comment" context="MultiLineComment" />
-
 						<!--<DetectChar char="'" attribute="String" context="Quote" /> -->
 						<DetectChar char="&quot;" attribute="String" context="DoubleQuote" />
 						<StringDetect String="I learned" attribute="Keyword" context="Method" />
@@ -35,9 +35,11 @@ TODO: Regex for punctuation instead of looking for .,?! separately
 						<StringDetect String="In regards to " attribute="BuiltInMethod" context="SwitchStatement" insensitive="true" />
 						<StringDetect String="If all else fails..." attribute="BuiltInMethod" insensitive="true" />
 						<StringDetect String="Did you know that" attribute="Keyword" context="Assignment" />
+						<StringDetect String="If" attribute="Keyword" context="Assignment" />
 						<StringDetect String="is" attribute="Keyword" />
-						<RegExpr String="[\d]" attribute="Digit" />
-
+						<RegExpr String="[\d]" attribute="Digit" context="Digit" />
+						<StringDetect String="nothing" attribute="Keyword" insensitive="true" />
+						<StringDetect String="became" attribute="Keyword" insensitive="true" />
 					</context>
 
 					<context name="Assignment" attribute="Parameters" lineEndContext="#pop" >
@@ -46,7 +48,16 @@ TODO: Regex for punctuation instead of looking for .,?! separately
 						<StringDetect String="is" attribute="Keyword" context="Array" />
 						<StringDetect String="was" attribute="Keyword" context="Array" />
 						<StringDetect String="had" attribute="Keyword" context="Array" />
+						<StringDetect String="then" attribute="Keyword" context="#pop" />
 						<RegExpr String="like(s|d)?" attribute="Keyword" context="Array" />
+					</context>
+
+					<context name="Digit" attribute="Digit" lineEndContext="#pop">
+						<DetectChar char="." attribute="Digit" context="FirstDecimal" />
+					</context>
+
+					<context name="FirstDecimal" attribute="Digit" lineEndContext="#pop">
+						<RegExpr String="\.\d*" attribute="Error" context="#pop#pop" />
 					</context>
 
 					<context name="Array" attribute="Parameters" lineEndContext="#pop" >
@@ -54,6 +65,8 @@ TODO: Regex for punctuation instead of looking for .,?! separately
 						<StringDetect String="the names" attribute="ArrayAssign" />
 						<StringDetect String="and" attribute="Keyword" />
 						<RegExpr String="[\.!?]" attribute="Normal Text" context="#pop" />
+						<RegExpr String="(a|the)? word" attribute="Type" insensitive="true" />
+						<RegExpr String="(a|the)? phrase" attribute="Type" insensitive="true" />
 					</context>
 
 					<context name="Equals" attribute="Parameters" lineEndContext="#pop" >
@@ -125,7 +138,6 @@ TODO: Regex for punctuation instead of looking for .,?! separately
 					</context>
 
 					<context name="DataTypes" attribute="Normal Text" lineEndContext="#pop" >
-
 					</context>
 				</contexts>
 
@@ -146,6 +158,7 @@ TODO: Regex for punctuation instead of looking for .,?! separately
 					<itemData name="Digit" defStyleNum="dsDecVal" color="#D3C500" />
 					<itemData name="ArrayType" defStyleNum="dsOthers" color="#00006B" underline="true" />
 					<itemData name="ArrayAssign" defStyleNum="dsOthers" color="#00006B"  />
+					<itemData name="Error" defStyleNum="dsError" color="#E10000" underline="true" />
 				</itemDatas>
 
 			</highlighting>
