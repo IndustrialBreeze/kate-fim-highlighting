@@ -6,6 +6,7 @@ Version 0.10: Dear Princess Celestia highlighting, general settings
 
 TODO: Regex for punctuation instead of looking for .,?! separately
 TODO: Ensure that types can be context'd by any existing context
+TODO: Single Quotes
 	-->
 
 	<language name="FiM++" version="0.10" kateversion="2.4" section="Sources"
@@ -31,7 +32,6 @@ TODO: Ensure that types can be context'd by any existing context
 						<RegExpr String="I remember(ed)?" attribute="Keyword" context="Method" />
 						<StringDetect String="Then you get" attribute="Keyword" context="Return" insensitive="true" />
 						<StringDetect String="That's all about" attribute="Keyword" context="Method" />
-						<StringDetect String="I said" attribute="BuiltInMethod" />
 						<StringDetect String="In regards to " attribute="BuiltInMethod" context="SwitchStatement" insensitive="true" />
 						<StringDetect String="If all else fails..." attribute="BuiltInMethod" insensitive="true" />
 						<StringDetect String="Did you know that" attribute="Keyword" context="Assignment" />
@@ -40,6 +40,50 @@ TODO: Ensure that types can be context'd by any existing context
 						<RegExpr String="[\d]" attribute="Digit" context="Digit" />
 						<StringDetect String="nothing" attribute="Keyword" insensitive="true" />
 						<StringDetect String="became" attribute="Keyword" insensitive="true" />
+						<!-- Booleans -->
+						<StringDetect String="yes" attribute="Type" insensitive="true" />
+						<StringDetect String="true" attribute="Type" insensitive="true" />
+						<StringDetect String="right" attribute="Type" insensitive="true" />
+						<StringDetect String="correct" attribute="Type" insensitive="true" />
+						<StringDetect String="no" attribute="Type" insensitive="true" />
+						<StringDetect String="false" attribute="Type" insensitive="true" />
+						<StringDetect String="wrong" attribute="Type" insensitive="true" />
+						<StringDetect String="incorrect" attribute="Type" insensitive="true" />
+						<StringDetect String="I would" attribute="Method" context="Arithmetic" />
+						<!-- / Booleans -->
+						<!-- Output -->
+						<RegExpr String="I (said|wrote|sang|thought)" attribute="BuiltInMethod" context="Output" />
+						<!-- / Output -->
+					</context>
+
+					<context name="Output" attribute="Parameters" lineEndContext="#pop" >
+						<DetectChar char="." attribute="Normal Text" context="#pop" /> <!-- TODO: All punctuation -->
+					</context>
+
+					<context name="Arithmetic" attribute="Parameters" lineEndContext="#pop" >
+						<StringDetect String="plus" attribute="Operator" insensitive="true" />
+						<StringDetect String="added to" attribute="Operator" insensitive="true" />
+						<StringDetect String="add" attribute="Operator" insensitive="true" />
+						<StringDetect String="and" attribute="Keyword" insensitive="true" />
+						<StringDetect String="got one more" attribute="Keyword" insensitive="true" />
+						<StringDetect String="got one less" attribute="Operator" insensitive="true" />
+						<StringDetect String="minus" attribute="Operator" insensitive="true" />
+						<StringDetect String="without" attribute="Operator" insensitive="true" />
+						<StringDetect String="the difference between" attribute="Operator" insensitive="true" />
+						<StringDetect String="times" attribute="Operator" insensitive="true" />
+						<StringDetect String="multiplied with" attribute="Operator" insensitive="true" />
+						<StringDetect String="multiply" attribute="Operator" insensitive="true" />
+						<StringDetect String="divided by" attribute="Operator" insensitive="true" />
+						<StringDetect String="divide" attribute="Operator" insensitive="true" />
+					</context>
+
+					<context name="VariableModifiers" attribute="Normal Text" lineEndContext="#pop" >
+						<StringDetect String="is" attribute="Keyword" />
+						<StringDetect String="are" attribute="Keyword" />
+						<StringDetect String="is" attribute="Keyword" />
+						<StringDetect String="now" attribute="Keyword" />
+						<RegExpr String="like(s)?" attribute="Keyword" />
+						<RegExpr String="become(s)?" attribute="Keyword" />
 					</context>
 
 					<context name="Assignment" attribute="Parameters" lineEndContext="#pop" >
@@ -114,7 +158,7 @@ TODO: Ensure that types can be context'd by any existing context
 
 					<context name="SwitchStatement" attribute="Normal Text" lineEndContext="#stay" >
 						<StringDetect String="..." attribute="BuiltInMethod" />
-						<StringDetect String="I said" attribute="BuiltInMethod" insensitive="true" />
+						<StringDetect String="I said" attribute="BuiltInMethod" insensitive="true" /> <!-- FIXME: Replace with regexpr for output -->
 						<StringDetect String="If all else fails" attribute="BuiltInMethod" insensitive="true" />
 						<StringDetect String="That's what I did" attribute="BuiltInMethod" context="#pop" insensitive="true" />
 						<StringDetect String="On the " attribute="Keyword" insensitive="true" context="SwitchCase" />
@@ -153,6 +197,7 @@ TODO: Ensure that types can be context'd by any existing context
 					<itemData name="String" defStyleNum="dsString" />
 					<itemData name="Type" defStyleNum="dsDataType" color="#000097" />
 					<itemData name="Method" defStyleNum="dsFunction" color="#0000FF" />
+					<itemData name="Operator" defStyleNum="dsFunction" color="#0000FF" />
 					<itemData name="Parameters" defStyleNum="dsDataType" color="#00C000" />
 					<itemData name="BuiltInMethod" defStyleNum="dsFunction" color="#0000FF" bold="true" />
 					<itemData name="Digit" defStyleNum="dsDecVal" color="#D3C500" />
