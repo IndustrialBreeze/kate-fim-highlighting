@@ -2,6 +2,8 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 
 <!--
+TODO: First and foremost, create a diagram that shows how these things are compartmentalized
+
 Version 0.10: Dear Princess Celestia highlighting, general settings
 
 TODO: Regex for punctuation instead of looking for .,?! separately
@@ -36,7 +38,7 @@ TODO: Single Quotes
 						<StringDetect String="If all else fails..." attribute="BuiltInMethod" insensitive="true" />
 						<StringDetect String="Did you know that" attribute="Keyword" context="Assignment" />
 						<StringDetect String="If" attribute="Keyword" context="Assignment" />
-						<StringDetect String="is" attribute="Keyword" />
+						<StringDetect String=" is " attribute="Keyword" />
 						<RegExpr String="[\d]" attribute="Digit" context="Digit" />
 						<StringDetect String="nothing" attribute="Keyword" insensitive="true" />
 						<StringDetect String="became" attribute="Keyword" insensitive="true" />
@@ -44,20 +46,26 @@ TODO: Single Quotes
 						<StringDetect String="yes" attribute="Type" insensitive="true" />
 						<StringDetect String="true" attribute="Type" insensitive="true" />
 						<StringDetect String="right" attribute="Type" insensitive="true" />
-						<StringDetect String="correct" attribute="Type" insensitive="true" />
-						<StringDetect String="no" attribute="Type" insensitive="true" />
+						<RegExpr String="(in)?correct" attribute="Type" insensitive="true" />
+						<StringDetect String=" no " attribute="Type" insensitive="true" />
 						<StringDetect String="false" attribute="Type" insensitive="true" />
 						<StringDetect String="wrong" attribute="Type" insensitive="true" />
-						<StringDetect String="incorrect" attribute="Type" insensitive="true" />
 						<StringDetect String="I would" attribute="Method" context="Arithmetic" />
 						<!-- / Booleans -->
 						<!-- Output -->
 						<RegExpr String="I (said|wrote|sang|thought)" attribute="BuiltInMethod" context="Output" />
+						<StringDetect String="I asked" attribute="BuiltInMethod" context="Input" />
 						<!-- / Output -->
 					</context>
 
 					<context name="Output" attribute="Parameters" lineEndContext="#pop" >
+						<StringDetect String="Then you get" attribute="Keyword" insensitive="true" />
 						<DetectChar char="." attribute="Normal Text" context="#pop" /> <!-- TODO: All punctuation -->
+					</context>
+
+					<context name="Input" attribute="Parameters" lineEndContext="#pop" >
+						<DetectChar char="." attribute="Normal Text" context="#pop" />
+						<!-- TODO: All punctuation -->
 					</context>
 
 					<context name="Arithmetic" attribute="Parameters" lineEndContext="#pop" >
